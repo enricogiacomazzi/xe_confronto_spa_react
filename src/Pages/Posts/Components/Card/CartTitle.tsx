@@ -1,14 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback} from 'react';
 
 
-export const CardTitle: React.FC<{title: string, likes: number}> = ({title, likes}) => {
-    const [level, setLevel] = useState(0);
-    useEffect(() => {
-        setLevel(likes >= 42 ? 0 : 6 - Math.floor(likes / 6));
-    }, [likes, level]);
+export const CardTitle: React.FC<{title: string, likes: number, click: () => void}> = ({title, likes, click}) => {
+    const cb = useCallback(() => likes >= 42 ? 0 : 6 - Math.floor(likes / 6), [likes]);
 
-    return React.createElement(
-        `h${level > 0 ? level : 1}`,
-        {style: {textTransform: level > 0 ? "capitalize" : "uppercase" }},
-        title);
+    const onClick = (e: MouseEvent) => {
+        e.preventDefault();
+        click();
+    }
+
+    const CustomTag: any = `h${cb() > 0 ? cb() : 1}`;
+    return <CustomTag onClick={onClick} style={{textTransform: cb() > 0 ? "capitalize" : "uppercase" }}>
+        {title}
+    </CustomTag>
 }

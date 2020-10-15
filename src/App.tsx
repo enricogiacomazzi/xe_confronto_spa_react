@@ -8,14 +8,8 @@ import {Navbar} from './Shared/Navbar/Navbar';
 import { AuthContext } from './Shared/AuthContext';
 import {LoggedRoute} from './Shared/LoggedRoute/LoggedRoute';
 
-
-
-
-
 const App: React.FC = () => {
-
-    const [token, setToken] = useState<string | undefined>(undefined);
-
+  const [token, setToken] = useState<string | undefined>('106673622');
   return (
       <AuthContext.Provider value={{token, setToken}}>
           <BrowserRouter>

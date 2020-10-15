@@ -1,16 +1,13 @@
-
-
-import React, {useContext, useEffect, useState} from 'react';
-import {SearchBar} from './Components/SearchBar/SearchBar';
-import {ItemList} from './Components/ItemList/ItemList';
-import css from './Posts.module.css';
+import {useContext, useEffect, useState} from 'react';
 import {PostModel} from '../../Models/post.model';
 import {AuthContext} from '../../Shared/AuthContext';
+import {useHistory} from 'react-router-dom';
 import {readINFOS, saveINFOS} from '../../infos';
-import { useHistory } from 'react-router-dom';
 import produce from 'immer';
 
-export const PostsPage: React.FC = () => {
+
+export const usePosts = () => {
+
     const [posts, setPosts] = useState<Array<PostModel>>([]);
     const [search, setSearch] = useState<string>('');
     const {token} = useContext(AuthContext);
@@ -37,24 +34,6 @@ export const PostsPage: React.FC = () => {
         }
     }
 
-    // const addLike = (post: PostModel) => {
-    //     console.log('click');
-    //     const found = posts.find(({id}) => post.id);
-    //     if(!!found) {
-    //         found.likes++;
-    //     }
-    //
-    //     setPosts(posts);
-    // }
-    //
-    // const addLike = (post: PostModel) => {
-    //     const edited = posts.map(p => p.id !== post.id
-    //         ? p
-    //         : {...p, likes: p.likes + 1});
-    //     setPosts(edited);
-    //     savePosts(edited);
-    // }
-
     const addLike = (post: PostModel) => {
         const edited = produce<Array<PostModel>>(posts, draft => {
             const p = draft.find(({id}) => id === post.id);
@@ -70,10 +49,9 @@ export const PostsPage: React.FC = () => {
         history.push(`/posts/${post.id}`);
     }
 
-    return (
-        <div className={css.posts}>
-            <SearchBar value={search} onSearch={setSearch}/>
-            <ItemList items={posts} search={search} addLike={addLike} gotoDetail={gotoDetail} clickHashTag={setSearch}/>
-        </div>
-    );
+    return {
+        posts, search, setSearch, addLike, gotoDetail
+    }
 }
+
+// const {posts, search, setSearch, addLike, gotoDetail } = usePosts();

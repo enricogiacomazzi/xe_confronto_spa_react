@@ -4,7 +4,10 @@ import {AuthContext} from '../AuthContext';
 import {RouteProps} from 'react-router';
 
 
-export const LoggedRoute: React.FC<RouteProps> = ({children, component, ...rest}) => {
+export const LoggedRoute: React.FC<RouteProps> = ({component, ...rest}) => {
     const {token} = useContext(AuthContext);
-    return <Route {...rest}>{!!token ? (children || component) : <Redirect to="/login"/>}</Route>;
+    const Component: any = component;
+    return <Route {...rest} render={props => (
+        !!token ? <Component {...props}/> : <Redirect to="/login"/>
+        )} />;
 }

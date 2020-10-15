@@ -1,0 +1,18 @@
+.btn {
+    width: 120px;
+    height: 40px;
+    margin: 8px;
+    text-align: center;
+    background-color: #61dafb;
+    color: #444;
+    border: 0;
+    font-size: 17px;
+}
+
+.disabled {
+    background-color: lightgray;
+}
+
+.icon {
+    margin-right: 10px;
+}
