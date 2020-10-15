@@ -9,7 +9,7 @@ import { AuthContext } from './Shared/AuthContext';
 import {LoggedRoute} from './Shared/LoggedRoute/LoggedRoute';
 
 const App: React.FC = () => {
-  const [token, setToken] = useState<string | undefined>('106673622');
+  const [token, setToken] = useState<string | undefined>(undefined);
   return (
       <AuthContext.Provider value={{token, setToken}}>
           <BrowserRouter>
