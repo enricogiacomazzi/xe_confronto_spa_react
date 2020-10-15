@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
+import {LoginPage} from './Pages/Login/Login.page';
+import {PostsPage} from './Pages/Posts/Posts.page';
+import {DetailPage} from './Pages/Detail/Detail.page';
+import {Navbar} from './Shared/Navbar/Navbar';
+import { AuthContext } from './Shared/AuthContext';
+import {LoggedRoute} from './Shared/LoggedRoute/LoggedRoute';
 
-function App() {
+
+
+
+
+const App: React.FC = () => {
+
+    const [token, setToken] = useState<string | undefined>(undefined);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      <AuthContext.Provider value={{token, setToken}}>
+          <BrowserRouter>
+              <Navbar/>
+              <Switch>
+                  <Route exact path="/login" component={LoginPage} />
+                  <Route exact path="/posts" component={PostsPage} />
+                  <LoggedRoute exact path="/posts/:id" component={DetailPage}/>
+                  <Route path="*">
+                      <Redirect to="/posts"/>
+                  </Route>
+              </Switch>
+          </BrowserRouter>
+      </AuthContext.Provider>
+  )
 }
 
 export default App;
