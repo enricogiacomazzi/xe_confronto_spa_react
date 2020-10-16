@@ -54,4 +54,3 @@ export const usePosts = () => {
     }
 }
 
-// const {posts, search, setSearch, addLike, gotoDetail } = usePosts();

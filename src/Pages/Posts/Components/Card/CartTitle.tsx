@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo} from 'react';
+import React, {useMemo} from 'react';
 
 
 export const CardTitle: React.FC<{title: string, likes: number, click: () => void}> = ({title, likes, click}) => {
@@ -10,7 +10,9 @@ export const CardTitle: React.FC<{title: string, likes: number, click: () => voi
     }
 
     const CustomTag: any = `h${level > 0 ? level : 1}`;
-    return <CustomTag onClick={onClick} style={{textTransform: level > 0 ? "capitalize" : "uppercase" }}>
-        {title}
-    </CustomTag>
+    return (
+        <CustomTag onClick={onClick} style={{textTransform: level > 0 ? "capitalize" : "uppercase" }}>
+            {title}
+        </CustomTag>
+    )
 }
