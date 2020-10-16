@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useMemo} from 'react';
 import {PostModel} from '../../../../Models/post.model';
 import {Card} from '../Card/Card';
 import css from './ItemList.module.css';
@@ -13,10 +13,10 @@ export interface ItemListProps {
 
 export const ItemList: React.FC<ItemListProps> = ({items, search, ...rest}) => {
 
-    const searchItems = useCallback(() =>
-        !search ? items : items.filter(i => i.hashtags.some(h => h.toUpperCase().includes(search.toUpperCase()))),
+    const searchItems = useMemo(() =>
+            !search ? items : items.filter(i => i.hashtags.some(h => h.toUpperCase().includes(search.toUpperCase()))),
         [items, search]);
 
-    return <div className={css.list}>{searchItems().map(item => <Card key={item.id} item={item} {...rest}/>)}</div>
+    return <div className={css.list}>{searchItems.map(item => <Card key={item.id} item={item} {...rest}/>)}</div>
 }
 

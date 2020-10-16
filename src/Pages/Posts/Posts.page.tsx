@@ -46,25 +46,25 @@ export const PostsPage: React.FC = () => {
     //
     //     setPosts(posts);
     // }
-    //
-    // const addLike = (post: PostModel) => {
-    //     const edited = posts.map(p => p.id !== post.id
-    //         ? p
-    //         : {...p, likes: p.likes + 1});
-    //     setPosts(edited);
-    //     savePosts(edited);
-    // }
 
     const addLike = (post: PostModel) => {
-        const edited = produce<Array<PostModel>>(posts, draft => {
-            const p = draft.find(({id}) => id === post.id);
-            if(!!p) {
-                p.likes++;
-            }
-        });
+        const edited = posts.map(p => p.id !== post.id
+            ? p
+            : {...p, likes: p.likes + 1});
         setPosts(edited);
         savePosts(edited);
     }
+
+    // const addLike = (post: PostModel) => {
+    //     const edited = produce<Array<PostModel>>(posts, draft => {
+    //         const p = draft.find(({id}) => id === post.id);
+    //         if(!!p) {
+    //             p.likes++;
+    //         }
+    //     });
+    //     setPosts(edited);
+    //     savePosts(edited);
+    // }
 
     const gotoDetail = (post: PostModel) => {
         history.push(`/posts/${post.id}`);
